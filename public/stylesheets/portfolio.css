@@ -53,11 +53,20 @@
     margin-top: 10px;
 }
 #portfolio_images.portfolio_entry_images li .image_actions {
-    background: white;
-    position: absolute;
-    padding: 3px;
-    left: 0px;
-    top: 0px;
+  background: white;
+  position: absolute;
+  padding: 3px;
+  left: 0px;
+  top: 0px;
+  width: 135px;
+}
+#portfolio_images li .image_actions.no_captions {
+  background: transparent;
+}
+#portfolio_images > li .image_actions img.caption {
+  position: absolute;
+  right: 3px;
+  top: 3px;
 }
 #portfolio_images.portfolio_entry_images li * {
     cursor: move;

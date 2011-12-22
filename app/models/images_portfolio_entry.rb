@@ -6,10 +6,9 @@ class ImagesPortfolioEntry < ActiveRecord::Base
   translates :caption if self.respond_to?(:translates)
 
   attr_accessible :image_id, :position, :locale
-  ::ImagePage::Translation.send :attr_accessible, :locale
+  self.translation_class.send :attr_accessible, :locale
 
   before_save do |image_portfolio_entry|
     image_portfolio_entry.position = (ImagesPortfolioEntry.maximum(:position) || -1) + 1
   end
-
 end

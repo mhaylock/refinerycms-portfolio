@@ -19,13 +19,32 @@ class PortfolioEntry < ActiveRecord::Base
   accepts_nested_attributes_for :images, :allow_destroy => false
 
   def images_attributes=(data)
-    self.images.clear
-
-    self.images = (0..(data.length-1)).collect { |i|
-      unless (image_id = data[i.to_s]['id'].to_i) == 0
-        Image.find(image_id) rescue nil
+    ids_to_delete = data.map{|i, d| d['image_portfolio_id']}.compact
+    self.images_portfolio_entries.each do |image_portfolio_entry|
+      if ids_to_delete.index(image_portfolio_entry.id.to_s).nil?
+        # Image has been removed, we must delete it
+        self.images_portfolio_entries.delete(image_portfolio_entry)
+        image_portfolio_entry.destroy
       end
-    }.compact
+    end
+              
+    (0..(data.length-1)).each do |i|
+      unless (image_data = data[i.to_s]).nil? or image_data['id'].blank?
+        image_portfolio = if image_data['image_portfolio_id'].present?
+          self.images_portfolio_entries.find(image_data['image_portfolio_id'])
+        else
+          self.images_portfolio_entries.new(:image_id => image_data['id'].to_i)
+        end
+        image_portfolio.position = i
+        # Add caption if supported
+        if RefinerySetting.find_or_set(:portfolio_images_captions, false)
+          image_portfolio.caption = image_data['caption']
+        end
+                  
+        self.images_portfolio_entries << image_portfolio if image_data['image_portfolio_id'].blank?
+        image_portfolio.save
+      end
+    end
   end
   
   def image_titles
@@ -35,6 +54,15 @@ class PortfolioEntry < ActiveRecord::Base
   def image_names
     self.images.collect{|i| i.image_name}
   end
+  
+  def caption_for_image_index(index)
+    self.images_portfolio_entries[index].try(:caption).presence || ""
+  end
+        
+  def image_portfolio_id_for_image_index(index)
+    self.images_portfolio_entries[index].try(:id)
+  end
+  
 
   alias_attribute :content, :body
 

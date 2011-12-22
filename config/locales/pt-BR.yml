@@ -1,4 +1,9 @@
 pt-BR:
+  js:
+    admin:
+      portfolio_images:
+        add_caption: Adicionar Legenda
+        done: Feito
   plugins:
     portfolio:
       title: Pasta

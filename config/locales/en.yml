@@ -1,4 +1,9 @@
 en:
+  js:
+    admin:
+      portfolio_images:
+        add_caption: Add Caption
+        done: Done
   plugins:
     portfolio:
       title: Portfolio
