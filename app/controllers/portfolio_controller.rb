@@ -29,8 +29,8 @@ class PortfolioController < ApplicationController
       end
 
       begin
-        image_index = (params[:image_id].presence || '0').to_i
-        @image = @portfolio_entry.images[image_index]
+        @image_index = (params[:image_id].presence || '0').to_i
+        @image = @portfolio_entry.images[@image_index]
       rescue
         render :action => "empty"
       end
