@@ -1,9 +1,11 @@
 var portfolio_entry_url = null;
 
 reset_functionality = function() {
-  WYMeditor.onload_functions.push(function(){
-    $('.wym_box').css({'width':null});
-  });
+  if (typeof(WYMeditor) != "undefined") {
+    WYMeditor.onload_functions.push(function(){
+      $('.wym_box').css({'width':null});
+    });
+  }
 
   $("#portfolio_images").sortable({
     'tolerance': 'pointer'
