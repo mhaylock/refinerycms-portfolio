@@ -14,7 +14,7 @@ class PortfolioEntry < ActiveRecord::Base
   default_scope :order => 'lft ASC'
   acts_as_indexed :fields => [:title, :image_titles, :image_names]
 
-  has_many :images_portfolio_entries
+  has_many :images_portfolio_entries, :order => 'images_portfolio_entries.position ASC'
   has_many :images, :through => :images_portfolio_entries, :order => 'images_portfolio_entries.position ASC'
   accepts_nested_attributes_for :images, :allow_destroy => false
 
