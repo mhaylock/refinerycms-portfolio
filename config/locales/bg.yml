@@ -1,4 +1,9 @@
 bg:
+  js:
+    admin:
+      portfolio_images:
+        add_caption: Добавяне на заглавие
+        done: Готово
   plugins:
     portfolio:
       title: Портфолио

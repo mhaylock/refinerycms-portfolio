@@ -1,4 +1,9 @@
 fr:
+  js:
+    admin:
+      portfolio_images:
+        add_caption: Ajouter une légende
+        done: Terminé
   plugins:
     portfolio:
       title: Portfolio

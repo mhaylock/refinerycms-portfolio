@@ -1,4 +1,9 @@
 cs:
+  js:
+    admin:
+      portfolio_images:
+        add_caption: Přidat titulek
+        done: Hotovo
   plugins:
     portfolio:
       title: Portfolio
